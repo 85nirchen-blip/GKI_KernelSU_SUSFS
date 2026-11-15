@@ -50,13 +50,13 @@ runs:
         mkdir -p "$source_dir/bin"
         (
           cd "$source_dir/userspace/src"
-          zig cc -target aarch64-linux -Oz -mcmodel=tiny -static -nostdlib \
+          zig cc -target aarch64-linux -Oz -mcmodel=tiny -static \
             -ffreestanding -fno-unwind-tables -fno-ident -Wno-invalid-noreturn \
-            -Wl,--entry=_start nm.c -o ../../bin/nm-arm64
-          zig cc -target arm-linux -Oz -static -nostdlib -ffreestanding \
+            nm.c -o ../../bin/nm-arm64
+          zig cc -target arm-linux -Oz -static -ffreestanding \
             -fno-unwind-tables -fno-ident -Wno-invalid-noreturn \
             -ffunction-sections -fdata-sections -Wl,--gc-sections \
-            -Wl,--entry=_start nm.c -o ../../bin/nm-arm
+            nm.c -o ../../bin/nm-arm
         )
 
         cp -a "$source_dir/module" "$module_dir"
